@@ -67,6 +67,7 @@ def tinyMazeSearch(problem):
   w = Directions.WEST
   return  [s,s,w,s,w,w,s,w]
 
+from game import Directions
 def depthFirstSearch(problem):
   """
   Search the deepest nodes in the search tree first
@@ -84,7 +85,34 @@ def depthFirstSearch(problem):
   print "Start's successors:", problem.getSuccessors(problem.getStartState())
   """
   "*** YOUR CODE HERE ***"
-  util.raiseNotDefined()
+  print "Start:", problem.getStartState()
+  print "Is the start a goal?", problem.isGoalState(problem.getStartState())
+  print "Start's successors:", problem.getSuccessors(problem.getStartState())
+  for n in problem.getSuccessors(problem.getStartState()):
+    pathToGoal = doDfsSearch(problem, n, visited=set([n[0]]))
+    if pathToGoal: 
+      return pathToGoal
+
+def doDfsSearch(problem, node, path=[], visited=set()):
+  path.append(node[1])
+  if problem.isGoalState(node[0]):
+    print "goal length: ", len(path)
+    print "goal: ", path
+    return path
+  if node[0] == Directions.STOP:
+    path.pop()
+    return None
+
+  for n in problem.getSuccessors(node[0]):
+    if not n[0] in visited:
+      visited.add(n[0])
+      pathToGoal = doDfsSearch(problem, n, path, visited)
+      # print n
+      if pathToGoal: 
+        return pathToGoal
+  
+  path.pop()
+  
 
 def breadthFirstSearch(problem):
   """
