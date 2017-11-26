@@ -20,7 +20,7 @@
                 "RedirectOutput"
             ],
             "args": [
-                "-l", "mediumMaze", "-p", "SearchAgent", "-a", "fn=bfs"
+                "-l", "mediumMaze", "-p", "SearchAgent", "-a", "fn=ucs"
             ]
         },
         {
