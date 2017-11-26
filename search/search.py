@@ -121,6 +121,7 @@ def breadthFirstSearch(problem):
   """
   import Queue
   visited = set()
+  paths = {}
   frontier = Queue.Queue()
   startState = problem.getStartState()
   frontier.put(startState)
@@ -131,11 +132,19 @@ def breadthFirstSearch(problem):
     visited.add(currentNode)
     if problem.isGoalState(currentNode):
       # found path
-      return [Directions.NORTH]
+      thepath = paths[currentNode]
+      print (thepath)
+      return thepath
     
     for n in problem.getSuccessors(currentNode):
       if n[0] != Directions.STOP and not n[0] in visited:
+        if currentNode == (25,16):
+          pass
         frontier.put(n[0])
+        currentPath = paths.get(currentNode, [])[:]
+        currentPath.append(n[1]) 
+        # currentPath.append((n[1], currentNode))
+        paths.setdefault(n[0], currentPath)
         # visited.add(n[0])
   return None
       
